@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+   <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Iframe Camera Permission Test</title>
+</head>
+
+<body>
+    <h1>Hi this is a test</h1>
+    <!-- Iframe element with camera permissions -->
+    <iframe id="iframe1" src="https://ehabarlab.github.io/test-ad/" width="300" height="500"
+        title="W3Schools Free Online Web Tutorials"></iframe>
+    <!-- Button to fix permissions -->
+     <!-- <button id="permissionButton">Click to fix permissions</button>  -->
+    <h2>Hi this is a test too</h2>
+    <script>
+             const handleClick = (e) => {
+                    const iframe= document.getElementById("iframe1");
+                    // Set the necessary permissions in the iframe
+                    iframe.setAttribute("allow", "camera; microphone; autoplay");
+                    // Force iframe reload to apply the new permissions (prevent caching issues)
+                    const iframeUrl = new URL(iframe.src);
+                    iframeUrl.searchParams.set('v', Date.now()); // Use timestamp to prevent caching
+                   // iframe.src = iframeUrl.toString();
+                    // Disable the button to prevent multiple clicks
+                    e.target.onclick = null;
+                    // Add confirmation text
+                    e.target.appendChild(document.createTextNode(' :heavy_check_mark: Permissions fixed'));
+                  //  const iframe_ = document.getElementById('iframe1');
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+                    // Access the button with id="cta-button" inside the iframe
+                    const ctaButton = iframeDoc.getElementById('cta-button');
+
+                    if (ctaButton) {
+                        // Hide the button
+                        //ctaButton.style.display = 'none';
+                        ctaButton.addEventListener('click',()=>{
+                    console.log("sss");
+                    iframe.src = "https://ehabarlab.github.io/MindAR-Test/";
+
+                        })
+                       // iframe.src="https://ehabarlab.github.io/MindAR-Test/";
+                    } else {
+                        console.error('Button with id "cta-button" not found in the iframe');
+                    }
+
+                };
+      //  };
+                // Attach the click event handler to the button
+                document.getElementById("iframe1").addEventListener('mouseover', handleClick);
+    
+    </script>
+</body>
+
+</html>
